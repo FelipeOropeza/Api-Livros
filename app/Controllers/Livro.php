@@ -9,13 +9,6 @@ class Livro extends ResourceController
 {
     public function index()
     {
-        $data = [
-            'livros' => [
-                'titulo' => 'Teste',
-                'assunto' => 'teste'
-            ],
-        ];
-
-        return $this->respond($data);
+        return $this->respond(['message' => 'API de livros']);
     }
 }

@@ -12,7 +12,7 @@ class Categoria extends Model
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
     protected $protectFields = true;
-    protected $allowedFields = ['categoria_id', 'nome'];
+    protected $allowedFields = ['nome'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -30,17 +30,12 @@ class Categoria extends Model
     // Validation
     protected $validationRules = [
         'nome' => 'required|min_length[3]|max_length[255]',
-        'categoria_id' => 'required|is_unique[categorias.categoria_id]',
     ];
     protected $validationMessages = [
         'nome' => [
             'required' => 'O nome da categoria é obrigatório',
             'min_length' => 'O nome da categoria deve ter pelo menos 3 caracteres',
             'max_length' => 'O nome da categoria deve ter no máximo 255 caracteres',
-        ],
-        'categoria_id' => [
-            'required' => 'O ID da categoria é obrigatório',
-            'is_unique' => 'O ID da categoria já existe',
         ],
     ];
     protected $skipValidation = false;

@@ -7,13 +7,13 @@ use CodeIgniter\Model;
 class Livro extends Model
 {
     protected $table            = 'livros';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'livro_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'livro_id', 'title', 'author', 'url_imagem', 'descricao', 'data_publicacao', 'fk_categoria'
+        'title', 'author', 'url_imagem', 'descricao', 'data_publicacao', 'fk_categoria'
     ];  
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

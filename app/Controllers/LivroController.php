@@ -5,7 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 
 
-class Livro extends ResourceController
+class LivroController extends ResourceController
 {
     public function index()
     {

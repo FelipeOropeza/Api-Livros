@@ -5,5 +5,5 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Livro::index');
+$routes->get('/', 'LivroController::index');
 $routes->post('categoria', 'CategoriaController::create');

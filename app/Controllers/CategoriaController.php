@@ -35,4 +35,20 @@ class CategoriaController extends ResourceController
             return $this->failServerError('Ocorreu um erro inesperado. ' . $th->getMessage());
         }
     }
+
+    public function getAllCategory(){
+        try {
+            $categoriaModel = new Categoria();
+
+            $response = $categoriaModel->findAll();
+
+            if(empty($response)){
+                return $this->failNotFound('Nenhuma categoria encontrada.');
+            }
+
+            return $this->respond($response);
+        } catch (\Throwable $th) {
+            return $this->failServerError('Ocorreu um erro inesperado. ' . $th->getMessage());
+        }
+    }
 }

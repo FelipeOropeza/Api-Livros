@@ -7,5 +7,6 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'LivroController::index');
 $routes->post('livro', 'LivroController::create');
+$routes->post('livro', 'LivroController::getAllBook');
 $routes->post('categoria', 'CategoriaController::create');
 $routes->get('categoria', 'CategoriaController::getAllCategory');

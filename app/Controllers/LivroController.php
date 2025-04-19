@@ -40,4 +40,20 @@ class LivroController extends ResourceController
             return $this->failServerError('Ocorreu um erro inesperado. ' . $th->getMessage());
         }
     }
+
+    public function getAllBook(){
+        try {
+            $livroModel = new Livro();
+
+            $response = $livroModel->findAll();
+
+            if(empty($response)){
+                return $this->failNotFound('Nenhum livro encontrado.');
+            }
+
+            return $this->respond($response);
+        } catch (\Throwable $th) {
+            return $this->failServerError('Ocorreu um erro inesperado. ' . $th->getMessage());
+        }
+    }
 }

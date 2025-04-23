@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Models\Livro;
 use CodeIgniter\RESTful\ResourceController;
 
-
 class LivroController extends ResourceController
 {
     public function index()
@@ -13,41 +12,47 @@ class LivroController extends ResourceController
         return $this->respond(['message' => 'API de livros']);
     }
 
-    public function create(){
+    public function create()
+    {
         try {
-            $data = $this->request->getJSON();
+            $data = $this->request->getPost();
+            $image = $this->request->getFile('url_imagem');
 
-            if (!$data) {
-                return $this->failValidationErrors('Dados não fornecidos ou mal formatados.');
+            if (!$data || !$image->isValid()) {
+                return $this->failValidationErrors('Dados ou imagem inválidos.');
             }
 
-            $livroModel = new Livro();
+            $firebase = new \App\Libraries\Firebase();
+            $filename = uniqid() . '.' . $image->getExtension();
+            $imagePath = $image->getTempName();
 
+            $url = $firebase->uploadImage($imagePath, $filename);
+            $data['url_imagem'] = $url;
+
+            $livroModel = new Livro();
             if ($livroModel->insert($data)) {
-                $response = [
+                return $this->respondCreated([
                     'status' => 201,
-                    'error' => null,
-                    'messages' => [
-                        'success' => 'Dados salvos com sucesso!'
-                    ]
-                ];
-                return $this->respondCreated($response);
+                    'messages' => ['success' => 'Livro criado com sucesso!'],
+                ]);
             } else {
                 return $this->failValidationErrors($livroModel->errors());
             }
 
         } catch (\Throwable $th) {
-            return $this->failServerError('Ocorreu um erro inesperado. ' . $th->getMessage());
+            return $this->failServerError('Erro interno: ' . $th->getMessage());
         }
     }
 
-    public function getAllBook(){
+
+    public function getAllBook()
+    {
         try {
             $livroModel = new Livro();
 
             $response = $livroModel->findAll();
 
-            if(empty($response)){
+            if (empty($response)) {
                 return $this->failNotFound('Nenhum livro encontrado.');
             }
 

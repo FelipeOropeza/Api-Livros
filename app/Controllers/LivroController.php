@@ -43,8 +43,6 @@ class LivroController extends ResourceController
             return $this->failServerError('Erro interno: ' . $th->getMessage());
         }
     }
-
-
     public function getAllBook()
     {
         try {
@@ -57,6 +55,22 @@ class LivroController extends ResourceController
             }
 
             return $this->respond($response);
+        } catch (\Throwable $th) {
+            return $this->failServerError('Ocorreu um erro inesperado. ' . $th->getMessage());
+        }
+    }
+
+    public function getIdBook($id = null)
+    {
+        try {
+            $livroModel = new Livro();
+            $livro = $livroModel->find($id);
+
+            if (!$livro) {
+                return $this->failNotFound("Livro com ID $id não encontrado.");
+            }
+
+            return $this->respond($livro);
         } catch (\Throwable $th) {
             return $this->failServerError('Ocorreu um erro inesperado. ' . $th->getMessage());
         }

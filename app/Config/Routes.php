@@ -10,6 +10,7 @@ $routes->group('', ['filter' => 'cors'], static function (RouteCollection $route
     $routes->get('/', 'LivroController::index');
     $routes->post('livro', 'LivroController::create', ['filter' => 'auth']);
     $routes->get('livro', 'LivroController::getAllBook');
+    $routes->get('livro/(:num)', 'LivroController::getIdBook/$1');
     $routes->post('categoria', 'CategoriaController::create', ['filter' => 'auth']);
     $routes->get('categoria', 'CategoriaController::getAllCategory');
     $routes->post('token', 'TokenController::generateToken');
